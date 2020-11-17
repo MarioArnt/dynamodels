@@ -1,7 +1,32 @@
-version: 2.1
-orbs:
-  node: circleci/node@3.0.0
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - run: npm install
+      - run: npm run lint
+      - run: npm run pre:test
+      - run: npm test
+      - run: npx codecov
+  release:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+      - run: npx semantic-release
+
 workflows:
-  node-tests:
+  version: 2
+  publish:
+    triggers:
     jobs:
-      - node/test
+      - test
+      - release:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master

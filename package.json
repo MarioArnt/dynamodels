@@ -10,8 +10,8 @@
     "prettier": "npx prettier --write '{src,test}/**/*.{js,jsx,ts,tsx,json,yml}'",
     "lint": "npx eslint '{src,test}**/*'",
     "pre:commit": "npm run prettier && npm run lint",
-    "pre:test": "docker run -d -p 8022:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb",
-    "test": "LOCAL_DYNAMODB_PORT=8022 npx jest --runInBand --config jest.config.json --coverage --detectOpenHandles",
+    "pre:test": "docker run -d -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb",
+    "test": "LOCAL_DYNAMODB_PORT=8000 npx jest --runInBand --config jest.config.json --coverage --detectOpenHandles",
     "build": "npx tsc",
     "semantic-release": "semantic-release"
   },

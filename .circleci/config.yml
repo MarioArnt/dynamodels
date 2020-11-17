@@ -3,11 +3,11 @@ jobs:
   test:
     docker:
       - image: circleci/node:12
+      - image: amazon/dynamodb-local
     steps:
       - checkout
       - run: npm ci
       - run: npm run lint
-      - run: npm run pre:test
       - run: npm test
       - run: npx codecov
   release:
